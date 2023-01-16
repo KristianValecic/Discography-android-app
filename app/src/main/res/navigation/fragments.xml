@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/menuItems"
+    android:id="@+id/fragments">
+
+    <fragment
+        tools:layout="@layout/fragment_items"
+        android:label="@string/items"
+        android:name="hr.valecic.discographyapp.ItemsFragment"
+        android:id="@+id/menuItems"/>
+    <fragment
+        tools:layout="@layout/fragment_about"
+        android:label="@string/about"
+        android:name="hr.valecic.discographyapp.AboutFragment"
+        android:id="@+id/menuAbout"/>
+</navigation>
