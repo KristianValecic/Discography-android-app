@@ -4,12 +4,58 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="20dp"
     tools:context=".AboutFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="App"
+        android:textColor="@color/primary"
+        android:textSize="@dimen/textLargeSize"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="@dimen/authorIvSize"
+        android:layout_height="@dimen/authorIvSize"
+        android:src="@drawable/author_image"
+        android:layout_gravity="center"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/made_by"
+        android:textColor="@color/primary"
+        android:textSize="@dimen/textIntermediateSize"
+        android:textStyle="bold"
+        android:layout_gravity="right"/>
 
 <TextView
     android:layout_width="wrap_content"
-    android:layout_height="250dp"
-    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    android:layout_height="wrap_content"
+    android:text="Kristian Valečić"
+    android:paddingBottom="5dp"
+    />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/primary"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        android:paddingTop="5dp"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim."
+    />
+
+    <TextView
+        android:id="@+id/tvFooter"
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        android:paddingTop="5dp"
+        android:text="Valečić - "
     />
 
 </LinearLayout>

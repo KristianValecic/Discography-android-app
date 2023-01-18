@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.DiscographyApp" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryVariant">@color/white</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary</item>
         <item name="colorOnPrimary">@android:color/background_dark</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -14,10 +14,12 @@
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/background</item>
         <item name="android:navigationBarColor">@color/background</item>
+        <item name="android:text">@color/background</item>
         <item name="android:itemBackground">@color/background</item>
         <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/textRegularSize</item>
     </style>
-    
+
     <style name="SplashScreenTheme" parent="Theme.DiscographyApp">
         <item name="android:textSize">@dimen/splashTextSize</item>
         <item name="android:textStyle">bold</item>

@@ -3,4 +3,12 @@
     <dimen name="splashPaddingMain">50dp</dimen>
     <dimen name="splashIvHeight">400dp</dimen>
     <dimen name="splashTextSize">40sp</dimen>
+    <dimen name="textRegularSize">20sp</dimen>
+    <dimen name="textIntermediateSize">32sp</dimen>
+    <dimen name="textLargeSize">65sp</dimen>
+    <dimen name="textSmallSize">25sp</dimen>
+    <dimen name="cornerRadius">32dp</dimen>
+    <dimen name="navHeight">60dp</dimen>
+    <dimen name="authorIvSize">220dp</dimen>
+    <dimen name="authorIvMargin">20dp</dimen>
 </resources>

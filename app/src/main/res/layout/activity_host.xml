@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/constraintLayout"
     tools:context=".HostActivity">
 
     <fragment
@@ -15,12 +16,16 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toTopOf="parent"
         />
-    
+
+<!--    app:layout_editor_absoluteX="0dp"-->
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navView"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/navHeight"
+        android:background="@drawable/navbar_background"
+        app:itemIconTint="@color/nav_color"
+        app:itemTextColor="@color/nav_color"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_editor_absoluteX="0dp"
         app:menu="@menu/navigation_menu"
 
         />
