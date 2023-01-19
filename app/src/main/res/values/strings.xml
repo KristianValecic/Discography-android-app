@@ -5,4 +5,6 @@
     <string name="items">Items</string>
     <string name="about">About</string>
     <string name="made_by">Made by</string>
+    <string name="footerText">Valečić -</string>
+    <string name="authorName">Kristian Valečić</string>
 </resources>

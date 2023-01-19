@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,55 +7,66 @@
     android:padding="20dp"
     tools:context=".AboutFragment">
 
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="App"
-        android:textColor="@color/primary"
-        android:textSize="@dimen/textLargeSize"
-        android:textStyle="bold" />
+        android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="@dimen/authorIvSize"
-        android:layout_height="@dimen/authorIvSize"
-        android:src="@drawable/author_image"
-        android:layout_gravity="center"
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="App"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/textHeading"
+            android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/made_by"
-        android:textColor="@color/primary"
-        android:textSize="@dimen/textIntermediateSize"
-        android:textStyle="bold"
-        android:layout_gravity="right"/>
+        <ImageView
+            android:layout_width="@dimen/authorIvSize"
+            android:layout_height="@dimen/authorIvSize"
+            android:layout_gravity="center"
+            android:src="@drawable/author_image" />
 
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Kristian Valečić"
-    android:paddingBottom="5dp"
-    />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/primary"
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="@string/made_by"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/textHeading2"
+            android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="250dp"
-        android:paddingTop="5dp"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim."
-    />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/aboutContentContainerPadding">
 
-    <TextView
-        android:id="@+id/tvFooter"
-        android:layout_width="wrap_content"
-        android:layout_height="250dp"
-        android:paddingTop="5dp"
-        android:text="Valečić - "
-    />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/authorTitleBottomPadding"
+                android:text="@string/authorName" />
 
-</LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/lineHeight"
+                android:background="@color/primary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/authorTextTopPadding"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim." />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvFooter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:paddingTop="5dp"
+            android:text="@string/footerText"
+            android:textSize="@dimen/textSmallSize" />
+    </LinearLayout>
+</ScrollView>
