@@ -2,6 +2,7 @@ package hr.valecic.discographyapp.framework
 
 import android.app.Activity
 import android.content.BroadcastReceiver
+import android.content.ClipData.Item
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
@@ -22,6 +23,12 @@ fun View.applyAnimation(animationId: Int) =
 inline fun <reified T : Activity> Context.startActivity() = startActivity(
     Intent(this, HostActivity::class.java)
         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+)
+
+inline fun <reified T : Activity> Context.startActivity(key: String, value: Int) = startActivity(
+    Intent(this, HostActivity::class.java).apply {
+        putExtra(key, value)
+    }.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 )
 
 fun Context.setBooleanPreference(key: String, value: Boolean = true) {
@@ -53,3 +60,21 @@ fun callDelayed(delay: Long, runnable: Runnable) {
 }
 
 inline fun<reified T: BroadcastReceiver> Context.sendBroadcast() = sendBroadcast(Intent(this, DiscogReceiver::class.java))
+
+fun Context.fetchItems(): MutableList<Item>{
+//    val items = mutableListOf<Item>()
+//    val cursor = contentResolver.query(NASA_PROVIDER_CONTENT_URI,
+//        null, null, null, null)
+//    while (cursor != null && cursor.moveToNext()) {
+//        items.add(Item(
+//            cursor.getLong(cursor.getColumnIndex(Item::_id.name)),
+//            cursor.getString(cursor.getColumnIndex(Item::title.name)),
+//            cursor.getString(cursor.getColumnIndex(Item::explanation.name)),
+//            cursor.getString(cursor.getColumnIndex(Item::picturePath.name)),
+//            cursor.getString(cursor.getColumnIndex(Item::date.name)),
+//            cursor.getInt(cursor.getColumnIndex(Item::read.name)) == 1
+//        ))
+//    }
+//
+//    return items
+}
