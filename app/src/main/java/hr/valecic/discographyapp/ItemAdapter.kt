@@ -12,12 +12,15 @@ import com.squareup.picasso.Picasso
 import hr.valecic.discographyapp.model.Artist
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
 
+const val ADDITIONAL_INFO_TEXT = "Match to searched band = "
+
 class ItemAdapter(private val context: Context, private val items: MutableList<Artist>)
     : RecyclerView.Adapter<ItemAdapter.ViewHolder>(){
 
         class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             private val ivItem = itemView.findViewById<ImageView>(R.id.ivBand)
             private val tvBandName = itemView.findViewById<TextView>(R.id.tvBandName)
+            private val tvAdditionalInfo = itemView.findViewById<TextView>(R.id.tvAdditionalInfo)
 
             fun bind(artist: Artist) {
                 //Picasso.get()
@@ -26,6 +29,7 @@ class ItemAdapter(private val context: Context, private val items: MutableList<A
                     //.transform(RoundedCornersTransformation(50, 5))
                     //.into(ivItem)
                 tvBandName.text = artist.name
+                tvAdditionalInfo.text = ADDITIONAL_INFO_TEXT + artist.match
             }
         }
 
@@ -37,8 +41,8 @@ class ItemAdapter(private val context: Context, private val items: MutableList<A
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//            val item = items[position]
-//
+           // val item = items[position]
+
 //            holder.itemView.setOnLongClickListener {
 //                deleteItem(position)
 //                true
@@ -47,20 +51,21 @@ class ItemAdapter(private val context: Context, private val items: MutableList<A
 //                context.startActivity<ItemPagerActivity>(POSITION, position)
 //            }
 //
-//            holder.bind(item)
+            //holder.bind(item)
+            holder.bind(items[position])
         }
 
-        private fun deleteItem(position: Int) {
+//        private fun deleteItem(position: Int) {
 //            val item = items[position]
 //            context.contentResolver.delete(
-//                ContentUris.withAppendedId(NASA_PROVIDER_CONTENT_URI, item._id!!),
+//                ContentUris.withAppendedId(DISCOG_PROVIDER_CONTENT_URI, item._id!!),
 //                null,
 //                null
 //            )
 //            File(item.picturePath).delete()
 //            items.removeAt(position)
 //            notifyDataSetChanged()
-        }
+//        }
 
         override fun getItemCount() = items.size
 }

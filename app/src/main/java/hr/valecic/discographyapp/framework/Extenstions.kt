@@ -1,5 +1,6 @@
 package hr.valecic.discographyapp.framework
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.ClipData.Item
@@ -13,9 +14,12 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.core.content.getSystemService
 import androidx.preference.PreferenceManager
+import hr.valecic.discographyapp.DISCOG_PROVIDER_CONTENT_URI
 import hr.valecic.discographyapp.DiscogReceiver
 import hr.valecic.discographyapp.HostActivity
 import hr.valecic.discographyapp.R
+import hr.valecic.discographyapp.api.ArtistItem
+import hr.valecic.discographyapp.model.Artist
 
 fun View.applyAnimation(animationId: Int) =
     startAnimation(AnimationUtils.loadAnimation(context, animationId))
@@ -61,20 +65,20 @@ fun callDelayed(delay: Long, runnable: Runnable) {
 
 inline fun<reified T: BroadcastReceiver> Context.sendBroadcast() = sendBroadcast(Intent(this, DiscogReceiver::class.java))
 
-fun Context.fetchItems(): MutableList<Item>{
-//    val items = mutableListOf<Item>()
-//    val cursor = contentResolver.query(NASA_PROVIDER_CONTENT_URI,
-//        null, null, null, null)
-//    while (cursor != null && cursor.moveToNext()) {
-//        items.add(Item(
-//            cursor.getLong(cursor.getColumnIndex(Item::_id.name)),
-//            cursor.getString(cursor.getColumnIndex(Item::title.name)),
-//            cursor.getString(cursor.getColumnIndex(Item::explanation.name)),
-//            cursor.getString(cursor.getColumnIndex(Item::picturePath.name)),
-//            cursor.getString(cursor.getColumnIndex(Item::date.name)),
-//            cursor.getInt(cursor.getColumnIndex(Item::read.name)) == 1
-//        ))
-//    }
-//
-//    return items
+@SuppressLint("Range")
+fun Context.fetchItems(): MutableList<Artist>{
+    val artists = mutableListOf<Artist>()
+    val cursor = contentResolver.query(DISCOG_PROVIDER_CONTENT_URI,
+        null, null, null, null)
+    while (cursor != null && cursor.moveToNext()) {
+        artists.add(Artist(
+            cursor.getLong(cursor.getColumnIndex(Artist::_id.name)),
+            cursor.getString(cursor.getColumnIndex(Artist::name.name)),
+//            cursor.getString(cursor.getColumnIndex(Artist::image.name)),
+            cursor.getInt(cursor.getColumnIndex(Artist::streamable.name)) == 1,
+            cursor.getString(cursor.getColumnIndex(Artist::match.name)),
+            cursor.getInt(cursor.getColumnIndex(Artist::favorite.name)) == 1
+        ))
+    }
+    return artists
 }

@@ -1,8 +1,10 @@
 package hr.valecic.discographyapp.api
 
+import android.content.ContentValues
 import android.content.Context
 import android.util.Log
 import hr.valecic.discographyapp.DiscogReceiver
+import hr.valecic.discographyapp.DISCOG_PROVIDER_CONTENT_URI
 import hr.valecic.discographyapp.framework.sendBroadcast
 import hr.valecic.discographyapp.model.Artist
 import kotlinx.coroutines.GlobalScope
@@ -44,8 +46,17 @@ class DiscogFetcher(private val context: Context) {
 //        println(artistItems)
         val fetchedArtists = mutableListOf<Artist>()
         GlobalScope.launch {
-            artistItems.artistsList?.forEach{
-                fetchedArtists.add(Artist(null, it.name, it.image, it.streamable, false))
+            artistItems.similarartists.artistsList?.forEach{
+                fetchedArtists.add(Artist(null, it.name, /*mutableListOf(),*/ it.streamable == 1, it.match, false))
+
+                val values = ContentValues().apply {
+                    put(Artist::name.name, it.name)
+                    put(Artist::match.name, it.match)
+                    put(Artist::streamable.name, it.streamable)
+                    put(Artist::favorite.name, false)
+                    //put(Artist::streamable.name, it.streamable)
+                }
+                context.contentResolver.insert(DISCOG_PROVIDER_CONTENT_URI, values)
             }
         }
         context.sendBroadcast<DiscogReceiver>()

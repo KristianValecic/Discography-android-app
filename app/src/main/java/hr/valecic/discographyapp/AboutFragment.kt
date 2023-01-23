@@ -6,24 +6,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import hr.valecic.discographyapp.databinding.FragmentAboutBinding
+import hr.valecic.discographyapp.databinding.FragmentItemsBinding
 import org.w3c.dom.Text
 import java.time.LocalDate
 import java.util.zip.Inflater
 
 class AboutFragment : Fragment() {
+    private lateinit var binding: FragmentAboutBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        setYearText(inflater.inflate(R.layout.fragment_about, container, false))
+        binding = FragmentAboutBinding.inflate(inflater, container, false)
+        setYearText(/*inflater.inflate(R.layout.fragment_about, container, false)*/)
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_about, container, false)
+        return binding.root
     }
 
-    private fun setYearText(view: View) {
-        val footer = view.findViewById<TextView>(R.id.tvFooter)
+    private fun setYearText(/*view: View*/) {
+        //val footer = view.findViewById<TextView>(R.id.tvFooter)
         val sb = StringBuilder()
-        sb.append(footer.text).append(LocalDate.now().year)
-        footer.text = sb
+        sb.append(binding.tvFooter.text).append(LocalDate.now().year)
+
+        binding.tvFooter.text = sb
     }
 }

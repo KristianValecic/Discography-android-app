@@ -12,7 +12,7 @@
     <dimen name="navHeight">60dp</dimen>
     <dimen name="authorIvSize">220dp</dimen>
     <dimen name="authorIvMargin">20dp</dimen>
-    <dimen name="aboutContentContainerPadding">20dp</dimen>
+    <dimen name="aboutContentContainerPadding">35dp</dimen>
     <dimen name="lineHeight">1dp</dimen>
     <dimen name="authorTitleBottomPadding">10dp</dimen>
     <dimen name="authorTextTopPadding">10dp</dimen>

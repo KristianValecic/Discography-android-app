@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="whiteOpacity">#A4FFFFFF</color>
     <color name="unselected">#99000000</color><!--363636-->
-    <color name="primary">#FBEECF</color>
+    <color name="primaryLight">#FBEECF</color>
+    <color name="primary">#F0D392</color>
     <color name="background">@color/black</color>
 </resources>

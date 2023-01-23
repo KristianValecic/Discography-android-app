@@ -16,22 +16,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="App"
-            android:textColor="@color/primary"
+            android:textColor="@color/primaryLight"
             android:textSize="@dimen/textHeading"
             android:textStyle="bold" />
 
-        <ImageView
+        <FrameLayout
+            android:layout_width="230dp"
+            android:layout_height="230dp"
+            android:layout_gravity="center">
+        <TextView
             android:layout_width="@dimen/authorIvSize"
             android:layout_height="@dimen/authorIvSize"
-            android:layout_gravity="center"
-            android:src="@drawable/author_image" />
-
+            android:text=""
+            android:layout_gravity="bottom|left"
+            android:background="@drawable/circle"
+            />
+            <ImageView
+                android:id="@+id/authorImage"
+                android:layout_width="@dimen/authorIvSize"
+                android:layout_height="@dimen/authorIvSize"
+                android:src="@drawable/author_image"
+                android:layout_gravity="top|right"/>
+        </FrameLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:text="@string/made_by"
-            android:textColor="@color/primary"
+            android:textColor="@color/primaryLight"
             android:textSize="@dimen/textHeading2"
             android:textStyle="bold" />
 
@@ -45,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/authorTitleBottomPadding"
-                android:text="@string/authorName" />
+                android:text="@string/authorName"/>
 
             <View
                 android:layout_width="match_parent"
