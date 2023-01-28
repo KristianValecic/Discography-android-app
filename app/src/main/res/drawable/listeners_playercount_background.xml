@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/primarySaturatedOpacity"/>
+<!--    <stroke android:color="@color/primary" android:width="2dp"/>-->
+    <corners
+        android:topLeftRadius="@dimen/listenersPlayercountCornerRadius"
+        android:topRightRadius="@dimen/listenersPlayercountCornerRadius"
+        android:bottomLeftRadius="@dimen/listenersPlayercountCornerRadius"
+        android:bottomRightRadius="@dimen/listenersPlayercountCornerRadius"
+        />
+</shape>

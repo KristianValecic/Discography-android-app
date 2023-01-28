@@ -16,11 +16,27 @@
         android:theme="@style/Theme.DiscographyApp"
         tools:ignore="HardcodedDebugMode"
         tools:targetApi="31">
+        <activity
+            android:name=".LoadActivity"
+            android:exported="false" />
+
+        <receiver
+            android:name=".ArtistReceiver"
+            android:enabled="true"
+            android:exported="false" />
+
+        <activity
+            android:name=".ArtistActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ItemPagerActivity"
+            android:exported="false" />
+
         <provider
             android:name=".DiscogProvider"
             android:authorities="hr.valecic.discographyapp.api.provider"
             android:enabled="true"
-            android:exported="false"></provider>
+            android:exported="false" />
 
         <receiver
             android:name=".DiscogReceiver"
@@ -32,6 +48,12 @@
             android:enabled="true"
             android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE" /> <!-- >=26 -->
+        <service
+            android:name=".ArtistService"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
         <activity
             android:name=".HostActivity"
             android:exported="false">

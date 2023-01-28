@@ -4,26 +4,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20dp"
+    android:id="@+id/scrollView"
     tools:context=".AboutFragment">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/aboutHeaderContainerPaddingV">
+            <TextView
+                android:id="@+id/vectorAbout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/vector_about"
+                android:text="" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="App"
-            android:textColor="@color/primaryLight"
+            android:textColor="@color/primary"
             android:textSize="@dimen/textHeading"
+            android:paddingHorizontal="20dp"
             android:textStyle="bold" />
 
         <FrameLayout
-            android:layout_width="230dp"
-            android:layout_height="230dp"
-            android:layout_gravity="center">
+            android:layout_width="@dimen/authorIvContainerSize"
+            android:layout_height="210dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/ivFrameMArginTopBottom"
+            android:layout_marginBottom="@dimen/ivFrameMArginTopBottom">
         <TextView
             android:layout_width="@dimen/authorIvSize"
             android:layout_height="@dimen/authorIvSize"
@@ -41,21 +55,25 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
             android:text="@string/made_by"
-            android:textColor="@color/primaryLight"
+            android:textColor="@color/primary"
             android:textSize="@dimen/textHeading2"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:paddingHorizontal="20dp"
+            android:layout_gravity="bottom|right"/>
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/aboutContentContainerPadding">
+            android:layout_marginTop="@dimen/aboutCopyMarginTop"
+            android:paddingHorizontal="@dimen/aboutContentContainerPadding">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="24sp"
                 android:paddingBottom="@dimen/authorTitleBottomPadding"
                 android:text="@string/authorName"/>
 
@@ -68,6 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/authorTextTopPadding"
+                android:textColor="@color/white"
                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim." />
         </LinearLayout>
 
@@ -79,6 +98,7 @@
             android:layout_marginTop="30dp"
             android:paddingTop="5dp"
             android:text="@string/footerText"
-            android:textSize="@dimen/textSmallSize" />
+            android:textSize="@dimen/textSmallSize"
+            android:padding="@dimen/footerPadding"/>
     </LinearLayout>
 </ScrollView>

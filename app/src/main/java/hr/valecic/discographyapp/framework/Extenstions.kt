@@ -14,10 +14,8 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.core.content.getSystemService
 import androidx.preference.PreferenceManager
-import hr.valecic.discographyapp.DISCOG_PROVIDER_CONTENT_URI
-import hr.valecic.discographyapp.DiscogReceiver
-import hr.valecic.discographyapp.HostActivity
-import hr.valecic.discographyapp.R
+import hr.valecic.discographyapp.*
+import hr.valecic.discographyapp.api.ArtistFetcher
 import hr.valecic.discographyapp.api.ArtistItem
 import hr.valecic.discographyapp.model.Artist
 
@@ -25,13 +23,19 @@ fun View.applyAnimation(animationId: Int) =
     startAnimation(AnimationUtils.loadAnimation(context, animationId))
 
 inline fun <reified T : Activity> Context.startActivity() = startActivity(
-    Intent(this, HostActivity::class.java)
+    Intent(this, T::class.java)
         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 )
-
 inline fun <reified T : Activity> Context.startActivity(key: String, value: Int) = startActivity(
-    Intent(this, HostActivity::class.java).apply {
+    Intent(this, T::class.java).apply {
         putExtra(key, value)
+    }.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+)
+
+inline fun <reified T : Activity> Context.startActivityNoHistory(key: String, value: Int) = startActivity(
+    Intent(this, T::class.java).apply {
+        putExtra(key, value)
+        setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
     }.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 )
 
@@ -63,7 +67,7 @@ fun callDelayed(delay: Long, runnable: Runnable) {
     )
 }
 
-inline fun<reified T: BroadcastReceiver> Context.sendBroadcast() = sendBroadcast(Intent(this, DiscogReceiver::class.java))
+inline fun<reified T: BroadcastReceiver> Context.sendBroadcast() = sendBroadcast(Intent(this, T::class.java))
 
 @SuppressLint("Range")
 fun Context.fetchItems(): MutableList<Artist>{
@@ -71,14 +75,35 @@ fun Context.fetchItems(): MutableList<Artist>{
     val cursor = contentResolver.query(DISCOG_PROVIDER_CONTENT_URI,
         null, null, null, null)
     while (cursor != null && cursor.moveToNext()) {
+//        ArtistFetcher(this).fetchInfo(cursor.getString(cursor.getColumnIndex(Artist::name.name)))
+//        ArtistService.enqueueGetArtistInfo(this, cursor.getString(cursor.getColumnIndex(Artist::name.name)))
         artists.add(Artist(
             cursor.getLong(cursor.getColumnIndex(Artist::_id.name)),
             cursor.getString(cursor.getColumnIndex(Artist::name.name)),
 //            cursor.getString(cursor.getColumnIndex(Artist::image.name)),
             cursor.getInt(cursor.getColumnIndex(Artist::streamable.name)) == 1,
             cursor.getString(cursor.getColumnIndex(Artist::match.name)),
-            cursor.getInt(cursor.getColumnIndex(Artist::favorite.name)) == 1
+            cursor.getInt(cursor.getColumnIndex(Artist::favorite.name)) == 1,
+            null,null,null,null
         ))
     }
     return artists
 }
+//@SuppressLint("Range")
+//fun Context.fetchInfo(): Artist{
+//    var artist: Artist
+//    val cursor = contentResolver.query(DISCOG_PROVIDER_CONTENT_URI,
+//        null, null, null, null)
+//    while (cursor != null && cursor.moveToNext()) {
+//        artist = Artist(
+//            cursor.getLong(cursor.getColumnIndex(Artist::_id.name)),
+//            cursor.getString(cursor.getColumnIndex(Artist::name.name)),
+////            cursor.getString(cursor.getColumnIndex(Artist::image.name)),
+//            cursor.getInt(cursor.getColumnIndex(Artist::streamable.name)) == 1,
+//            cursor.getString(cursor.getColumnIndex(Artist::match.name)),
+//            cursor.getInt(cursor.getColumnIndex(Artist::favorite.name)) == 1,
+//            null,null,null,null
+//        ))
+//    }
+//    return artists
+//}

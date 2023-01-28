@@ -7,4 +7,13 @@
     <string name="made_by">Made by</string>
     <string name="footerText">Valečić -</string>
     <string name="authorName">Kristian Valečić</string>
+    <string name="deleted_item">Deleted item</string>
+    <string name="artist_match">Match to searched band = </string>
+    <string name="favorites">Favorites</string>
+    <string name="account">Account</string>
+    <string name="listeners">Listeners:</string>
+    <string name="playcount">Playcount:</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank artist fragment</string>
+    <string name="loading_artist_info">Loading artist info...</string>
 </resources>

@@ -17,7 +17,7 @@ class DiscogService: JobIntentService() {
         //sendBroadcast<DiscogReceiver>()
     }
     companion object{
-        fun enqueue(context: Context){
+        fun enqueueGetAllArtists(context: Context){
             enqueueWork(context, DiscogService::class.java, JOB_ID,
                 Intent(context, DiscogService::class.java))
         }

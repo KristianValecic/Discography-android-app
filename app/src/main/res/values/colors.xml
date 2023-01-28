@@ -10,6 +10,10 @@
     <color name="whiteOpacity">#A4FFFFFF</color>
     <color name="unselected">#99000000</color><!--363636-->
     <color name="primaryLight">#FBEECF</color>
-    <color name="primary">#F0D392</color>
+    <color name="primary">#B59D68</color>
+<!--    <color name="primary">#F0D392</color>-->
+    <color name="primarySaturated">#A68129</color>
+    <color name="primarySaturatedOpacity">#594616</color>
+    <color name="primaryOpacity">#786949</color>
     <color name="background">@color/black</color>
 </resources>

@@ -35,18 +35,16 @@ class SplashScreenActivity : AppCompatActivity() {
                 View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_FULLSCREEN
         }
     }
-
     private fun startAnimatoins() {
         binding.tvSplash.applyAnimation(R.anim.blink)
         binding.ivSplash.applyAnimation(R.anim.rotate)
     }
-
     private fun redirect() {
         if(getBooleanPreference(FIRST_DATA_IMPORTED)){
             callDelayed(DELAY) { startActivity<HostActivity>() }
         }else{
             if(isOnline()){
-                DiscogService.enqueue(this)
+                DiscogService.enqueueGetAllArtists(this)
             }else{
                 binding.tvSplash.text = getString(R.string.no_internet)
                 callDelayed(DELAY) { finish() }

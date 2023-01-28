@@ -3,6 +3,7 @@ package hr.valecic.discographyapp.api
 import android.content.ContentValues
 import android.content.Context
 import android.util.Log
+import hr.valecic.discographyapp.ArtistService
 import hr.valecic.discographyapp.DiscogReceiver
 import hr.valecic.discographyapp.DISCOG_PROVIDER_CONTENT_URI
 import hr.valecic.discographyapp.framework.sendBroadcast
@@ -17,6 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class DiscogFetcher(private val context: Context) {
     private var discogApi: DiscogApi
+
     init {
         val retrofit = Retrofit.Builder()
             .baseUrl(API_BASE)
@@ -25,10 +27,10 @@ class DiscogFetcher(private val context: Context) {
         discogApi = retrofit.create(DiscogApi::class.java)
     }
 
-    fun fetchItems(){
+    fun fetchItems() {
         val request = discogApi.fetchItems()
 
-        request.enqueue(object: Callback<SimilarArtistsItem>{
+        request.enqueue(object : Callback<SimilarArtistsItem> {
             override fun onResponse(
                 call: Call<SimilarArtistsItem>,
                 response: Response<SimilarArtistsItem>
@@ -42,21 +44,43 @@ class DiscogFetcher(private val context: Context) {
         })
     }
 
-    private fun populateItems(artistItems: SimilarArtistsItem) {
-//        println(artistItems)
+    private fun populateItem(artistItems: SimilarArtistsItem) {
         val fetchedArtists = mutableListOf<Artist>()
         GlobalScope.launch {
-            artistItems.similarartists.artistsList?.forEach{
-                fetchedArtists.add(Artist(null, it.name, /*mutableListOf(),*/ it.streamable == 1, it.match, false))
+//            for every item need to fetch endpoint data
+            artistItems.similarartists.artistsList?.forEach {
+//                mozda ne treba enque
+//                ArtistService.enqueueGetArtistInfo(context, it.name)
+                ArtistFetcher(context).fetchInfo(it.name)
+            }
+        }
+    }
 
-                val values = ContentValues().apply {
-                    put(Artist::name.name, it.name)
-                    put(Artist::match.name, it.match)
-                    put(Artist::streamable.name, it.streamable)
-                    put(Artist::favorite.name, false)
-                    //put(Artist::streamable.name, it.streamable)
+    private fun populateItems(artistItems: SimilarArtistsItem) {
+        println(artistItems)
+        var counter = 0
+        val counterLimit = 5
+        val fetchedArtists = mutableListOf<Artist>()
+        GlobalScope.launch {
+            artistItems.similarartists.artistsList?.forEach {
+                if (counter <= counterLimit) {
+                    fetchedArtists.add(
+                        Artist(
+                            null, it.name, /*mutableListOf(),*/ it.streamable == 1, it.match,
+                            false, null, null, null, null
+                        )
+                    )
+
+                    val values = ContentValues().apply {
+                        put(Artist::name.name, it.name)
+                        put(Artist::match.name, it.match)
+                        put(Artist::streamable.name, it.streamable)
+                        put(Artist::favorite.name, false)
+                        //put(Artist::streamable.name, it.streamable)
+                    }
+                    context.contentResolver.insert(DISCOG_PROVIDER_CONTENT_URI, values)
+                    counter++
                 }
-                context.contentResolver.insert(DISCOG_PROVIDER_CONTENT_URI, values)
             }
         }
         context.sendBroadcast<DiscogReceiver>()
