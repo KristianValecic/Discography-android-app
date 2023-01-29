@@ -4,6 +4,7 @@
     <dimen name="splashIvHeight">400dp</dimen>
     <dimen name="splashTextSize">40sp</dimen>
     <dimen name="textRegularSize">20sp</dimen>
+    <dimen name="textMidSize">17sp</dimen>
     <dimen name="textBigSize">33sp</dimen>
     <dimen name="textHeading2">32sp</dimen>
     <dimen name="textHeading">52sp</dimen>
@@ -32,4 +33,8 @@
     <dimen name="itemPagerStarSize">30dp</dimen>
     <dimen name="itemStarMarginRight">10dp</dimen>
     <dimen name="progressBarSize">150dp</dimen>
+    <dimen name="tvTagPaddingVertical">5dp</dimen>
+    <dimen name="tvTagPaddingHorizontal">10dp</dimen>
+    <dimen name="albumContainerSize">150dp</dimen>
+    <dimen name="ivAlbumSize">125dp</dimen>
 </resources>

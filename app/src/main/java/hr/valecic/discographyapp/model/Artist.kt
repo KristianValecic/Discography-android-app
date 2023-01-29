@@ -13,6 +13,6 @@ data class Artist(
     var favorite: Boolean,
     var listeners: Long?,
     var playcount: Long?,
-    var tags: List<TagItem>?,
+    var tags: TagItem?,
     var bio: BioItem?
 )

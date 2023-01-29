@@ -18,15 +18,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 class ArtistFetcher(private val context: Context)  {
     private lateinit var artistApi: ArtistApi
-//    make endpoint url
-//    init {
-//        val retrofit = Retrofit.Builder()
-//            .baseUrl(API_BASE)
-//            .addConverterFactory(GsonConverterFactory.create())
-//            .build()
-//    artistApi = retrofit.create(ArtistApi::class.java)
-//    }
-
     fun fetchInfo(name: String){
         val retrofit = Retrofit.Builder()
             .baseUrl(API_BASE)
@@ -59,20 +50,45 @@ class ArtistFetcher(private val context: Context)  {
         var fetchedArtist: Artist
         GlobalScope.launch {
             ArtistActivity.artist = Artist(null, artist.name, /*mutableListOf(),*/ artist.streamable == 1, null,
-                false, artist.stats.listeners?.toLong(), artist.stats.playcount?.toLong() ,artist.tags.tags, artist.bio)
-
-//                val values = ContentValues().apply {
-//                    put(Artist::name.name, it.name)
-//                    put(Artist::match.name, it.match)
-//                    put(Artist::streamable.name, it.streamable)
-//                    put(Artist::favorite.name, false)
-//                    //put(Artist::streamable.name, it.streamable)
-//                }
-//                context.contentResolver.insert(DISCOG_PROVIDER_CONTENT_URI, values)
+                false, artist.stats.listeners?.toLong(), artist.stats.playcount?.toLong() ,artist.tags, artist.bio)
             }
-//        ArtistActivity.progress.dismiss()
         context.sendBroadcast<ArtistReceiver>()
     }
-//    }
+
+    fun fetchAlbums(name: String) {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(API_BASE)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        artistApi = retrofit.create(ArtistApi::class.java)
+//            https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=cher&api_key=fd62d8a51e7d0928197a212a9831a537&format=json
+        var sb = StringBuilder()
+        sb.append(API_BASE).append(API_METHOD_PREFIX).append("artist.gettopalbums&artist=").append(name).append(API_SUFFIX)
+
+        val request = artistApi.fetchInfo(sb.toString())
+
+        request.enqueue(object: Callback<ArtistItem> {
+            override fun onResponse(
+                call: Call<ArtistItem>,
+                response: Response<ArtistItem>
+            ) {
+                response.body()?.let { populateAlbumItem(it) }
+            }
+
+            override fun onFailure(call: Call<ArtistItem>, t: Throwable) {
+                Log.e(javaClass.name, t.toString(), t)
+            }
+        })
+    }
+
+    private fun populateAlbumItem(album: ArtistItem) {
+//        var album = artistWrapper.artist
+        var fetchedArtist: Artist
+        GlobalScope.launch {
+            ArtistActivity.album = Artist(null, artist.name, /*mutableListOf(),*/ artist.streamable == 1, null,
+                false, artist.stats.listeners?.toLong(), artist.stats.playcount?.toLong() ,artist.tags, artist.bio)
+        }
+        context.sendBroadcast<ArtistReceiver>()
+    }
 }
 

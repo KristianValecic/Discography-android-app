@@ -24,6 +24,7 @@ class LoadActivity : AppCompatActivity() {
     private fun loadArtist() {
         position = intent.getIntExtra(POSITION, position)
         ArtistService.enqueueGetArtistInfo(this, fetchItems()[position].name)
+//        ArtistService.enqueueGetArtistAlbums(this, fetchItems()[position].name)
     }
 
     private fun startProgressBar() {
