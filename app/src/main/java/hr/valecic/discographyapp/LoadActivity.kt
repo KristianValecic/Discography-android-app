@@ -3,11 +3,15 @@ package hr.valecic.discographyapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import hr.valecic.discographyapp.databinding.ActivityLoadBinding
+import hr.valecic.discographyapp.framework.callDelayed
 import hr.valecic.discographyapp.framework.fetchItems
+import hr.valecic.discographyapp.framework.isOnline
 import java.util.Timer
 import java.util.zip.Inflater
 import java.util.TimerTask
 import kotlin.concurrent.timerTask
+
+private const val DELAY = 3000L
 
 class LoadActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoadBinding
@@ -22,9 +26,14 @@ class LoadActivity : AppCompatActivity() {
     }
 
     private fun loadArtist() {
-        position = intent.getIntExtra(POSITION, position)
-        ArtistService.enqueueGetArtistInfo(this, fetchItems()[position].name)
-//        ArtistService.enqueueGetArtistAlbums(this, fetchItems()[position].name)
+
+        if(isOnline()){
+            position = intent.getIntExtra(POSITION, position)
+            ArtistService.enqueueGetArtistInfo(this, fetchItems()[position].name)
+        }else{
+            binding.tvLoadActivity.text = getString(R.string.no_internet)
+            callDelayed(DELAY) { finish() }
+        }
     }
 
     private fun startProgressBar() {

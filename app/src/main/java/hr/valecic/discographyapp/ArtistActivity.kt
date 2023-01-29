@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import hr.valecic.discographyapp.adapter.TagAdapter
 import hr.valecic.discographyapp.databinding.ActivityArtistBinding
 import hr.valecic.discographyapp.framework.fetchItems
+import hr.valecic.discographyapp.model.Album
 import hr.valecic.discographyapp.model.Artist
 import kotlinx.coroutines.sync.Mutex
 
@@ -27,9 +28,9 @@ class ArtistActivity() : AppCompatActivity() {
 //
 //        }
 
-        //        lateinit var progress: ProgressDialog
+//        lateinit var progress: ProgressDialog
         lateinit var artist: Artist
-        lateinit var albums: Album
+        lateinit var albums: List<Album>
     }
 
     private lateinit var binding: ActivityArtistBinding

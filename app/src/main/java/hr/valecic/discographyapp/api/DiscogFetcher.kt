@@ -44,26 +44,14 @@ class DiscogFetcher(private val context: Context) {
         })
     }
 
-    private fun populateItem(artistItems: SimilarArtistsItem) {
-        val fetchedArtists = mutableListOf<Artist>()
-        GlobalScope.launch {
-//            for every item need to fetch endpoint data
-            artistItems.similarartists.artistsList?.forEach {
-//                mozda ne treba enque
-//                ArtistService.enqueueGetArtistInfo(context, it.name)
-                ArtistFetcher(context).fetchInfo(it.name)
-            }
-        }
-    }
-
     private fun populateItems(artistItems: SimilarArtistsItem) {
         println(artistItems)
-        var counter = 0
-        val counterLimit = 5
+//        var counter = 0
+//        val counterLimit = 5
         val fetchedArtists = mutableListOf<Artist>()
         GlobalScope.launch {
             artistItems.similarartists.artistsList?.forEach {
-                if (counter <= counterLimit) {
+//                if (counter <= counterLimit) {
                     fetchedArtists.add(
                         Artist(
                             null, it.name, /*mutableListOf(),*/ it.streamable == 1, it.match,
@@ -79,8 +67,8 @@ class DiscogFetcher(private val context: Context) {
                         //put(Artist::streamable.name, it.streamable)
                     }
                     context.contentResolver.insert(DISCOG_PROVIDER_CONTENT_URI, values)
-                    counter++
-                }
+//                    counter++
+//                }
             }
         }
         context.sendBroadcast<DiscogReceiver>()

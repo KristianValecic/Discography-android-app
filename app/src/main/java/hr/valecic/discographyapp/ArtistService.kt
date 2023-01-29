@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.Intent.getIntent
 import android.os.Bundle
 import androidx.core.app.JobIntentService
-import androidx.work.*
 import hr.valecic.discographyapp.api.ArtistFetcher
 import hr.valecic.discographyapp.framework.sendBroadcast
 

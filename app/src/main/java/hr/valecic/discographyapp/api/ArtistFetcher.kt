@@ -1,6 +1,5 @@
 package hr.valecic.discographyapp.api
 
-import android.content.ContentValues
 import android.content.Context
 import android.util.Log
 import hr.valecic.discographyapp.ArtistActivity
@@ -8,7 +7,9 @@ import hr.valecic.discographyapp.ArtistReceiver
 import hr.valecic.discographyapp.DISCOG_PROVIDER_CONTENT_URI
 import hr.valecic.discographyapp.DiscogReceiver
 import hr.valecic.discographyapp.framework.sendBroadcast
+import hr.valecic.discographyapp.model.Album
 import hr.valecic.discographyapp.model.Artist
+import hr.valecic.discographyapp.model.Image
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -52,7 +53,7 @@ class ArtistFetcher(private val context: Context)  {
             ArtistActivity.artist = Artist(null, artist.name, /*mutableListOf(),*/ artist.streamable == 1, null,
                 false, artist.stats.listeners?.toLong(), artist.stats.playcount?.toLong() ,artist.tags, artist.bio)
             }
-        context.sendBroadcast<ArtistReceiver>()
+        sendBroadcast()
     }
 
     fun fetchAlbums(name: String) {
@@ -65,30 +66,41 @@ class ArtistFetcher(private val context: Context)  {
         var sb = StringBuilder()
         sb.append(API_BASE).append(API_METHOD_PREFIX).append("artist.gettopalbums&artist=").append(name).append(API_SUFFIX)
 
-        val request = artistApi.fetchInfo(sb.toString())
+        val request = artistApi.fetchAlbums(sb.toString())
 
-        request.enqueue(object: Callback<ArtistItem> {
+        request.enqueue(object: Callback<TopAlbumsItem> {
             override fun onResponse(
-                call: Call<ArtistItem>,
-                response: Response<ArtistItem>
+                call: Call<TopAlbumsItem>,
+                response: Response<TopAlbumsItem>
             ) {
                 response.body()?.let { populateAlbumItem(it) }
             }
 
-            override fun onFailure(call: Call<ArtistItem>, t: Throwable) {
+            override fun onFailure(call: Call<TopAlbumsItem>, t: Throwable) {
                 Log.e(javaClass.name, t.toString(), t)
             }
         })
     }
 
-    private fun populateAlbumItem(album: ArtistItem) {
+    private fun populateAlbumItem(topAlbums: TopAlbumsItem) {
 //        var album = artistWrapper.artist
-        var fetchedArtist: Artist
+        var fetchedAlbums = mutableListOf<Album>()
+        var fetchedAlbumImages = mutableListOf<Image>()
         GlobalScope.launch {
-            ArtistActivity.album = Artist(null, artist.name, /*mutableListOf(),*/ artist.streamable == 1, null,
-                false, artist.stats.listeners?.toLong(), artist.stats.playcount?.toLong() ,artist.tags, artist.bio)
+            topAlbums.topalbums.albums.forEach {
+                it.images.forEach {
+                    fetchedAlbumImages.add(Image(it.text, it.size))
+                }
+                fetchedAlbums.add(Album(null, it.name, it.playcount, fetchedAlbumImages))
+            }
+            ArtistActivity.albums = fetchedAlbums
         }
+        sendBroadcast()
         context.sendBroadcast<ArtistReceiver>()
+    }
+
+    private fun sendBroadcast(){
+
     }
 }
 

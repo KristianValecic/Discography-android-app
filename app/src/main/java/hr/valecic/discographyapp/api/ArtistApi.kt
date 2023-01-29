@@ -19,4 +19,6 @@ interface ArtistApi {
     //format: base + method + item + key + format
     @GET(/*"https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist={artistName}}&api_key=fd62d8a51e7d0928197a212a9831a537&format=json"*/)
     fun fetchInfo(@Url url: String): Call<ArtistItem>
+    @GET
+    fun fetchAlbums(@Url url: String): Call<TopAlbumsItem>
 }

@@ -17,6 +17,7 @@
         android:indeterminateTint="@color/primarySaturated"/>
     
     <TextView
+        android:id="@+id/tvLoadActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/loading_artist_info"
