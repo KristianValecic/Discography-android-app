@@ -17,9 +17,16 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-class ArtistFetcher(private val context: Context)  {
+
+class ArtistFetcher(private val context: Context) {
     private lateinit var artistApi: ArtistApi
-    fun fetchInfo(name: String){
+
+    companion object {
+        private var isArtistInfoFetched = false
+        private var areAlbumsFetched = false
+    }
+
+    fun fetchInfo(name: String) {
         val retrofit = Retrofit.Builder()
             .baseUrl(API_BASE)
             .addConverterFactory(GsonConverterFactory.create())
@@ -27,11 +34,12 @@ class ArtistFetcher(private val context: Context)  {
         artistApi = retrofit.create(ArtistApi::class.java)
 
         var sb = StringBuilder()
-        sb.append(API_BASE).append(API_METHOD_PREFIX).append("artist.getinfo&artist=").append(name).append(API_SUFFIX)
+        sb.append(API_BASE).append(API_METHOD_PREFIX).append("artist.getinfo&artist=").append(name)
+            .append(API_SUFFIX)
 
         val request = artistApi.fetchInfo(sb.toString())
 
-        request.enqueue(object: Callback<ArtistItem> {
+        request.enqueue(object : Callback<ArtistItem> {
             override fun onResponse(
                 call: Call<ArtistItem>,
                 response: Response<ArtistItem>
@@ -50,9 +58,19 @@ class ArtistFetcher(private val context: Context)  {
         var artist = artistWrapper.artist
         var fetchedArtist: Artist
         GlobalScope.launch {
-            ArtistActivity.artist = Artist(null, artist.name, /*mutableListOf(),*/ artist.streamable == 1, null,
-                false, artist.stats.listeners?.toLong(), artist.stats.playcount?.toLong() ,artist.tags, artist.bio)
-            }
+            ArtistActivity.artist = Artist(
+                null,
+                artist.name, /*mutableListOf(),*/
+                artist.streamable == 1,
+                null,
+                false,
+                artist.stats.listeners?.toLong(),
+                artist.stats.playcount?.toLong(),
+                artist.tags,
+                artist.bio
+            )
+        }
+        isArtistInfoFetched = true;
         sendBroadcast()
     }
 
@@ -64,11 +82,12 @@ class ArtistFetcher(private val context: Context)  {
         artistApi = retrofit.create(ArtistApi::class.java)
 //            https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=cher&api_key=fd62d8a51e7d0928197a212a9831a537&format=json
         var sb = StringBuilder()
-        sb.append(API_BASE).append(API_METHOD_PREFIX).append("artist.gettopalbums&artist=").append(name).append(API_SUFFIX)
+        sb.append(API_BASE).append(API_METHOD_PREFIX).append("artist.gettopalbums&artist=")
+            .append(name).append(API_SUFFIX)
 
         val request = artistApi.fetchAlbums(sb.toString())
 
-        request.enqueue(object: Callback<TopAlbumsItem> {
+        request.enqueue(object : Callback<TopAlbumsItem> {
             override fun onResponse(
                 call: Call<TopAlbumsItem>,
                 response: Response<TopAlbumsItem>
@@ -85,22 +104,30 @@ class ArtistFetcher(private val context: Context)  {
     private fun populateAlbumItem(topAlbums: TopAlbumsItem) {
 //        var album = artistWrapper.artist
         var fetchedAlbums = mutableListOf<Album>()
-        var fetchedAlbumImages = mutableListOf<Image>()
         GlobalScope.launch {
             topAlbums.topalbums.albums.forEach {
+                var fetchedAlbumImages = mutableListOf<Image>()
                 it.images.forEach {
-                    fetchedAlbumImages.add(Image(it.text, it.size))
+                    if (!it.text.isEmpty() && !it.size.isEmpty() && it.size == "large") {
+                        fetchedAlbumImages.add(Image(it.text, it.size))
+                    }
                 }
-                fetchedAlbums.add(Album(null, it.name, it.playcount, fetchedAlbumImages))
+                if (it.name.isEmpty() != true) {
+                    fetchedAlbums.add(Album(null, it.name, it.playcount, fetchedAlbumImages))
+                }
             }
             ArtistActivity.albums = fetchedAlbums
         }
+        areAlbumsFetched = true
         sendBroadcast()
-        context.sendBroadcast<ArtistReceiver>()
     }
 
-    private fun sendBroadcast(){
-
+    private fun sendBroadcast() {
+        if (isArtistInfoFetched && areAlbumsFetched) {
+            isArtistInfoFetched = false
+            areAlbumsFetched = false
+            context.sendBroadcast<ArtistReceiver>()
+        }
     }
 }
 

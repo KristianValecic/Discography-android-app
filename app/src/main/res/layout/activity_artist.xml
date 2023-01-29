@@ -135,8 +135,7 @@
             android:id="@+id/albumsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/itemPagerMarginHorizontal"
-            android:layout_marginTop="@dimen/tagsContainerMarginTop"
+            android:layout_margin="@dimen/albumsMargin"
             android:orientation="horizontal">
         </androidx.recyclerview.widget.RecyclerView>
         <!--        <FrameLayout-->

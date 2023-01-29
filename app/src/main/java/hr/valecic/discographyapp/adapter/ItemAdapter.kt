@@ -3,12 +3,15 @@ package hr.valecic.discographyapp.adapter
 import android.app.AlertDialog
 import android.content.ContentUris
 import android.content.Context
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.res.TypedArrayUtils
+import androidx.core.content.res.TypedArrayUtils.getString
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
@@ -35,9 +38,9 @@ class ItemAdapter(private val context: Context, private val items: MutableList<A
             //.transform(RoundedCornersTransformation(50, 5))
             //.into(ivItem)
             tvBandName.text = artist.name
-            val sb = StringBuilder()
-            sb.append(tvAdditionalInfo.text).append(" ").append(artist.match)
-            tvAdditionalInfo.text = sb
+//            val sb = StringBuilder()
+//            sb.append(R.string.artist_match).append(" ").append(artist.match)
+            tvAdditionalInfo.text = "${itemView.context.getString(R.string.artist_match)} ${artist.match}"
         }
     }
 

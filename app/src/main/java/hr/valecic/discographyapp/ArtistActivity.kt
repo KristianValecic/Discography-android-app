@@ -12,6 +12,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import hr.valecic.discographyapp.adapter.AlbumAdapter
 import hr.valecic.discographyapp.adapter.TagAdapter
 import hr.valecic.discographyapp.databinding.ActivityArtistBinding
 import hr.valecic.discographyapp.framework.fetchItems
@@ -24,11 +25,6 @@ const val POSITION = "hr.valecic.discographyapp.position"
 
 class ArtistActivity() : AppCompatActivity() {
     companion object {
-//        fun startBind(){
-//
-//        }
-
-//        lateinit var progress: ProgressDialog
         lateinit var artist: Artist
         lateinit var albums: List<Album>
     }
@@ -43,10 +39,11 @@ class ArtistActivity() : AppCompatActivity() {
     private lateinit var tvListeners: TextView
     private lateinit var tvPlaycount: TextView
     private lateinit var tvBio: TextView
-    private  var tagList = ArrayList<String>()
     private lateinit var tagAdapter: TagAdapter
-//    private lateinit var albumsContainer: LinearLayout
-//    private lateinit var tagsContainer: LinearLayout
+    private lateinit var albumAdapter: AlbumAdapter
+    private  var tagList = ArrayList<String>()
+    private  var albumList = ArrayList<Album>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityArtistBinding.inflate(layoutInflater)
@@ -63,35 +60,36 @@ class ArtistActivity() : AppCompatActivity() {
         tvListeners = findViewById(R.id.tvListeners)
         tvPlaycount = findViewById(R.id.tvPlayercount)
         tvBio = findViewById(R.id.tvBio)
-//        albumsContainer = findViewById(R.id.albumsContainer)
-//        tagsContainer = findViewById(R.id.tagsContainer)
     }
-
-//    private fun getArtist() {
-////        progress = ProgressDialog(this)
-////        progress.setTitle("Loading")
-////        progress.setMessage("Wait while loading...")
-////        progress.setCancelable(false) // disable dismiss by tapping outside of the dialog
-////        progress.show()
-//        ArtistService.enqueueGetArtistInfo(this, fetchItems()[position].name)
-//    }
 
     private fun initPosiiton() {
         position = intent.getIntExtra(POSITION, position)
     }
 
     fun bind(artist: Artist) {
-        //Picasso.get()
-        //.load(File(item.picturePath))
-        //.error(R.drawable.nasa)
-        //.transform(RoundedCornersTransformation(50, 5))
-        //.into(ivItem)
         tvArtistName.text = artist.name
         tvListeners.text = "${tvListeners.text}  ${artist.listeners}"
         tvPlaycount.text = "${tvPlaycount.text}  ${artist.playcount}"
         tvBio.text = "${tvBio.text}  ${artist.bio?.summary}"
-//        tagsContainer.background = getDrawable(R.drawable.tag_background)
         fillTags()
+        fillAlbums()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
+    }
+
+    private fun fillAlbums() {
+        albumAdapter = AlbumAdapter(albumList)
+        binding.albumsContainer.apply {
+            layoutManager = LinearLayoutManager(this@ArtistActivity, LinearLayoutManager.HORIZONTAL, false)
+            adapter = albumAdapter
+        }
+        albums.forEach {
+            albumList.add(it)
+            albumAdapter.notifyItemInserted(albumList.size - 1)
+        }
     }
 
     private fun fillTags() {

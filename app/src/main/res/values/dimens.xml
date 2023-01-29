@@ -37,4 +37,5 @@
     <dimen name="tvTagPaddingHorizontal">10dp</dimen>
     <dimen name="albumContainerSize">150dp</dimen>
     <dimen name="ivAlbumSize">125dp</dimen>
+    <dimen name="albumsMargin">20dp</dimen>
 </resources>
