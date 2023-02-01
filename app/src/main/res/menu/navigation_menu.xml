@@ -7,11 +7,11 @@
         android:icon="@drawable/ic_items"
          android:title="@string/items"/>
     <item
-        android:id="@+id/menuAccount"
+        android:id="@+id/menuFavorites"
         android:icon="@drawable/star"
          android:title="@string/favorites"/>
     <item
-        android:id="@+id/menuFavorites"
+        android:id="@+id/menuAccount"
         android:icon="@drawable/user"
         android:title="@string/account" />
     <item

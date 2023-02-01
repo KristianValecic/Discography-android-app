@@ -29,6 +29,7 @@ class LoadActivity : AppCompatActivity() {
 
         if(isOnline()){
             position = intent.getIntExtra(POSITION, position)
+            ArtistActivity.position = position
             ArtistService.enqueueGetArtistInfo(this, fetchItems()[position].name)
         }else{
             binding.tvLoadActivity.text = getString(R.string.no_internet)

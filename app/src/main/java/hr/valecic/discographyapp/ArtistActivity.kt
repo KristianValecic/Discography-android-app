@@ -2,16 +2,17 @@ package hr.valecic.discographyapp
 
 import android.annotation.SuppressLint
 import android.app.ProgressDialog
+import android.content.ContentUris
+import android.content.ContentValues
 import android.content.Context
 import android.graphics.Canvas
 import android.os.Bundle
+import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.ListView
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
 import hr.valecic.discographyapp.adapter.AlbumAdapter
 import hr.valecic.discographyapp.adapter.TagAdapter
 import hr.valecic.discographyapp.databinding.ActivityArtistBinding
@@ -25,6 +26,7 @@ const val POSITION = "hr.valecic.discographyapp.position"
 
 class ArtistActivity() : AppCompatActivity() {
     companion object {
+        var position = 0
         lateinit var artist: Artist
         lateinit var albums: List<Album>
     }
@@ -33,16 +35,17 @@ class ArtistActivity() : AppCompatActivity() {
 
     //    private lateinit var artists: MutableList<Artist>
 //    private lateinit var artist: Artist
-    private var position = 0
+//    private var position = 0
 
     private lateinit var tvArtistName: TextView
     private lateinit var tvListeners: TextView
     private lateinit var tvPlaycount: TextView
     private lateinit var tvBio: TextView
+    private lateinit var ivFavorite: ImageView
     private lateinit var tagAdapter: TagAdapter
     private lateinit var albumAdapter: AlbumAdapter
-    private  var tagList = ArrayList<String>()
-    private  var albumList = ArrayList<Album>()
+    private var tagList = ArrayList<String>()
+    private var albumList = ArrayList<Album>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,19 +63,54 @@ class ArtistActivity() : AppCompatActivity() {
         tvListeners = findViewById(R.id.tvListeners)
         tvPlaycount = findViewById(R.id.tvPlayercount)
         tvBio = findViewById(R.id.tvBio)
+        ivFavorite = findViewById(R.id.ivFavorite)
     }
 
     private fun initPosiiton() {
-        position = intent.getIntExtra(POSITION, position)
+//        position = intent.getIntExtra(POSITION, position)
     }
 
     fun bind(artist: Artist) {
         tvArtistName.text = artist.name
         tvListeners.text = "${tvListeners.text}  ${artist.listeners}"
         tvPlaycount.text = "${tvPlaycount.text}  ${artist.playcount}"
-        tvBio.text = "${tvBio.text}  ${artist.bio?.summary}"
+        tvBio.text = "${artist.bio?.summary?.trim()}"
+        initFavoriteStar()
         fillTags()
         fillAlbums()
+    }
+
+    private fun initFavoriteStar() {
+        if(FirebaseAuth.getInstance().currentUser == null){
+            ivFavorite.visibility = View.GONE
+        }else  {
+            ivFavorite.setImageResource(if (artist.favorite) R.drawable.star_fill else R.drawable.star)
+            ivFavorite.tag = if (artist.favorite) R.drawable.star_fill else R.drawable.star
+            ivFavorite.setOnClickListener() {
+                updateItem()
+                if (ivFavorite.tag == R.drawable.star_fill) {
+                    ivFavorite.setImageResource(R.drawable.star)
+                    ivFavorite.tag = R.drawable.star
+                } else {
+                    ivFavorite.setImageResource(R.drawable.star_fill)
+                    ivFavorite.tag = R.drawable.star_fill
+                }
+            }
+        }
+    }
+
+    private fun updateItem() {
+        val item = fetchItems()[position]
+        item.favorite = !item.favorite
+        contentResolver.update(
+            ContentUris.withAppendedId(DISCOG_PROVIDER_CONTENT_URI, item._id!!),
+            ContentValues().apply {
+                put(Artist::favorite.name, item.favorite)
+            },
+            null,
+            null
+        )
+//        notifyDataSetChanged()
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -83,7 +121,8 @@ class ArtistActivity() : AppCompatActivity() {
     private fun fillAlbums() {
         albumAdapter = AlbumAdapter(albumList)
         binding.albumsContainer.apply {
-            layoutManager = LinearLayoutManager(this@ArtistActivity, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(this@ArtistActivity, LinearLayoutManager.HORIZONTAL, false)
             adapter = albumAdapter
         }
         albums.forEach {
@@ -95,7 +134,8 @@ class ArtistActivity() : AppCompatActivity() {
     private fun fillTags() {
         tagAdapter = TagAdapter(tagList)
         binding.tagsContainer.apply {
-            layoutManager = LinearLayoutManager(this@ArtistActivity, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(this@ArtistActivity, LinearLayoutManager.HORIZONTAL, false)
             adapter = tagAdapter
         }
         artist.tags?.tags?.forEach {

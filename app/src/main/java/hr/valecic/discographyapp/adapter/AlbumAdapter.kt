@@ -28,7 +28,7 @@ class AlbumAdapter(/*context: Context,*/ private val albums: MutableList<Album>)
         private val tvAlbum = itemView.findViewById<TextView>(R.id.tvAlbum)
 
         fun bind(album: Album) {
-                //            Picasso.get()
+//            Picasso.get()
 //            .load(File(item.picturePath))
 //            .error(R.drawable.nasa)
 ////            .transform(RoundedCornersTransformation(50, 5))

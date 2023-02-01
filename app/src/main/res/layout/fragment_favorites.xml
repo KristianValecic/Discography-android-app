@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragments.FavoritesFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:text="Favorites"
+        android:textColor="@color/primary"
+        android:textSize="@dimen/textHeading"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/lineHeight"
+        android:background="@color/primary" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clNotLoggedIn"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="40dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tvFavorites"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/you_must_be_logged_in_to_see_or_add_favorites"
+                android:textAlignment="center"
+                tools:ignore="MissingConstraints" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_background"
+                android:backgroundTint="@color/primaryLight"
+                android:paddingVertical="10dp"
+                android:text="@string/login"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textRegularSize"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="40dp"
+                android:layout_marginTop="20dp"/>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvFavoritedItems"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Items"
+        android:visibility="gone" />
+
+</LinearLayout>

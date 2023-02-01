@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "538503554537",
+    "project_id": "discographyapp",
+    "storage_bucket": "discographyapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:538503554537:android:deb5d47b2acd679a8e5778",
+        "android_client_info": {
+          "package_name": "hr.valecic.discographyapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "538503554537-vulhcrr9s3ci97kfejqc4qm570s9uri4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6tdKBE91NbbSRLxuNoBB5CeV4JzN3y5k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "538503554537-vulhcrr9s3ci97kfejqc4qm570s9uri4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

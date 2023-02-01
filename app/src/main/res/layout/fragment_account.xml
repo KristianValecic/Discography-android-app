@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="40dp"
+    tools:context=".fragments.RegisterFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Account"
+            android:textSize="@dimen/textHeading"
+            android:textStyle="bold"
+            tools:ignore="MissingConstraints" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/lineHeight"
+            android:background="@color/primary" />
+
+        <TextView
+            android:layout_width="@dimen/userHeadingSize"
+            android:layout_height="@dimen/userHeadingSize"
+            android:background="@drawable/user"
+            android:backgroundTint="@color/primary"
+            android:layout_margin="20dp"
+            android:text="" />
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="10dp"
+                android:text="Email:"
+                android:textColor="@color/primary"
+                android:textColorHint="@color/primaryOpacity"
+                android:textSize="@dimen/textRegularSize" />
+
+            <TextView
+                android:id="@+id/tvEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="10dp"
+                android:paddingBottom="20dp"
+                android:text=""
+                android:textColor="@color/primaryLight"
+                android:textColorHint="@color/primaryOpacity"
+                android:textSize="@dimen/textRegularSize" />
+    </LinearLayout>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/logoutButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_background"
+        android:backgroundTint="@color/primaryLight"
+        android:paddingVertical="10dp"
+        android:text="@string/logout"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textRegularSize"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="40dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

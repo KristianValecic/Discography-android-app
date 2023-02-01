@@ -71,17 +71,8 @@ class ItemAdapter(private val context: Context, private val items: MutableList<A
         }
         holder.itemView.setOnClickListener {
             context.startActivityNoHistory<LoadActivity>(POSITION, position)
-//            promijeni fragment
-//            val artistFragment = ArtistFragment(context)
-//            val fm = (context as AppCompatActivit).supportFragmentManager
-//            val transaction: FragmentTransaction = fm.beginTransaction().apply {
-//                replace(R.id.navController,artistFragment)
-//                setPrimaryNavigationFragment(artistFragment)
-////                addToBackStack(null)
-//                commit()
             }
         holder.bind(item)
-        //holder.bind(items[position])
     }
 
     private fun deleteItem(position: Int) {

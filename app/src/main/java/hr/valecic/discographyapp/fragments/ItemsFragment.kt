@@ -1,4 +1,4 @@
-package hr.valecic.discographyapp
+package hr.valecic.discographyapp.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

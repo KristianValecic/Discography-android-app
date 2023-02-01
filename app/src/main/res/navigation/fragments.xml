@@ -8,11 +8,68 @@
     <fragment
         tools:layout="@layout/fragment_items"
         android:label="@string/items"
-        android:name="hr.valecic.discographyapp.ItemsFragment"
+        android:name="hr.valecic.discographyapp.fragments.ItemsFragment"
         android:id="@+id/menuItems"/>
+    <fragment
+        tools:layout="@layout/fragment_favorites"
+        android:label="@string/favorites"
+        android:name="hr.valecic.discographyapp.fragments.FavoritesFragment"
+        android:id="@+id/menuFavorites">
+
+        <action
+            android:id="@+id/action_menuFavorites_to_menuLgoinFavorites"
+            app:destination="@id/menuLgoinFavorites" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_login_favorites"
+        android:label="@string/favorites"
+        android:name="hr.valecic.discographyapp.fragments.LoginFavoritesFragment"
+        android:id="@+id/menuLgoinFavorites">
+
+        <action
+            android:id="@+id/action_menuLgoinFavorites_to_menuFavorites"
+            app:destination="@id/menuFavorites" />
+        <action
+            android:id="@+id/action_menuLgoinFavorites_to_menuAccount"
+            app:destination="@id/menuAccount" />
+    </fragment>
+
+    <fragment
+        tools:layout="@layout/fragment_login"
+        android:label="@string/login"
+        android:name="hr.valecic.discographyapp.fragments.LoginFragment"
+        android:id="@+id/menuLogin">
+        <action
+            android:id="@+id/action_menuLogin_to_menuRegister"
+            app:destination="@id/menuRegister" />
+        <action
+            android:id="@+id/action_menuLogin_to_menuAccount"
+            app:destination="@id/menuAccount" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_register"
+        android:label="@string/register"
+        android:name="hr.valecic.discographyapp.fragments.RegisterFragment"
+        android:id="@+id/menuRegister">
+        <action
+            android:id="@+id/action_menuRegister_to_menuLogin"
+            app:destination="@id/menuLogin" />
+        <action
+            android:id="@+id/action_menuRegister_to_menuAccount"
+            app:destination="@id/menuAccount" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_account"
+        android:label="@string/account"
+        android:name="hr.valecic.discographyapp.fragments.AccountFragment"
+        android:id="@+id/menuAccount">
+        <action
+            android:id="@+id/action_menuAccount_to_menuLoggedInAccount"
+            app:destination="@id/menuLogin" />
+    </fragment>
     <fragment
         tools:layout="@layout/fragment_about"
         android:label="@string/about"
-        android:name="hr.valecic.discographyapp.AboutFragment"
+        android:name="hr.valecic.discographyapp.fragments.AboutFragment"
         android:id="@+id/menuAbout"/>
 </navigation>

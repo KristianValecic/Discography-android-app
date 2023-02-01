@@ -6,6 +6,7 @@ import hr.valecic.discographyapp.ArtistActivity
 import hr.valecic.discographyapp.ArtistReceiver
 import hr.valecic.discographyapp.DISCOG_PROVIDER_CONTENT_URI
 import hr.valecic.discographyapp.DiscogReceiver
+import hr.valecic.discographyapp.framework.fetchItems
 import hr.valecic.discographyapp.framework.sendBroadcast
 import hr.valecic.discographyapp.model.Album
 import hr.valecic.discographyapp.model.Artist
@@ -63,7 +64,7 @@ class ArtistFetcher(private val context: Context) {
                 artist.name, /*mutableListOf(),*/
                 artist.streamable == 1,
                 null,
-                false,
+                context.fetchItems().find { it.name == artist.name }!!.favorite,
                 artist.stats.listeners?.toLong(),
                 artist.stats.playcount?.toLong(),
                 artist.tags,
