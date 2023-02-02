@@ -16,6 +16,7 @@ private const val DELAY = 3000L
 class LoadActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoadBinding
     private var position = 0
+    private var name = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,11 +27,10 @@ class LoadActivity : AppCompatActivity() {
     }
 
     private fun loadArtist() {
-
         if(isOnline()){
-            position = intent.getIntExtra(POSITION, position)
+            name = intent.getStringExtra(POSITION).toString()
             ArtistActivity.position = position
-            ArtistService.enqueueGetArtistInfo(this, fetchItems()[position].name)
+            ArtistService.enqueueGetArtistInfo(this, fetchItems().find { it.name == name }?.name ?: "")
         }else{
             binding.tvLoadActivity.text = getString(R.string.no_internet)
             callDelayed(DELAY) { finish() }

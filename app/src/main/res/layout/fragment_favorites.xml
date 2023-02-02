@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingHorizontal="20dp"
-        android:text="Favorites"
+        android:text="@string/favorites"
         android:textColor="@color/primary"
         android:textSize="@dimen/textHeading"
         android:textStyle="bold" />
@@ -44,20 +44,7 @@
                 android:textAlignment="center"
                 tools:ignore="MissingConstraints" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnLogin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_background"
-                android:backgroundTint="@color/primaryLight"
-                android:paddingVertical="10dp"
-                android:text="@string/login"
-                android:textAllCaps="false"
-                android:textColor="@color/black"
-                android:textSize="@dimen/textRegularSize"
-                android:textStyle="bold"
-                tools:layout_editor_absoluteX="40dp"
-                android:layout_marginTop="20dp"/>
+
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

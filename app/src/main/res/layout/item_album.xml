@@ -14,7 +14,7 @@
         android:id="@+id/tvAlbum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="album name"
+        tools:text="@string/album_name"
         android:layout_gravity="center"
         android:textAlignment="center"
         android:textSize="@dimen/textSmallSize"

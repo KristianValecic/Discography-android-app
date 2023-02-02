@@ -22,7 +22,6 @@ import hr.valecic.discographyapp.model.Artist
 
 class FavoritesFragment : Fragment() {
     private lateinit var binding: FragmentFavoritesBinding
-    private lateinit var btnLogin: Button
     private lateinit var clNotLoggedIn: ConstraintLayout
     private lateinit var rvFavoritedItems: RecyclerView
     private lateinit var favorites: MutableList<Artist>
@@ -40,23 +39,14 @@ class FavoritesFragment : Fragment() {
         return binding.root
     }
 
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//
-//
-//    }
-
     private fun initAuth() {
         auth = FirebaseAuth.getInstance()
     }
 
     private fun initComponents() {
-        btnLogin = binding.btnLogin
         clNotLoggedIn = binding.clNotLoggedIn
-        rvFavoritedItems= binding.rvFavoritedItems
-        btnLogin.setOnClickListener(){
-            Navigation.findNavController(binding.root).navigate(R.id.action_menuFavorites_to_menuLgoinFavorites)
-        }
+        rvFavoritedItems = binding.rvFavoritedItems
+
     }
 
     override fun onStart() {
@@ -66,7 +56,6 @@ class FavoritesFragment : Fragment() {
             loadFavorites()
             clNotLoggedIn.visibility = View.GONE
             rvFavoritedItems.visibility = View.VISIBLE
-
         }
     }
 

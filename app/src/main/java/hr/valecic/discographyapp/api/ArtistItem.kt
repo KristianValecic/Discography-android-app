@@ -8,7 +8,7 @@ data class ArtistItem(
     @SerializedName("artist") val artist: ArtistItem,
     @SerializedName("name") val name : String,
     @SerializedName("mbid") val mbid : String,
-    @SerializedName("match") val match : String,//koliko je slican odabranom artistu
+    @SerializedName("match") val match : String,
     @SerializedName("url") val url : String,
     @SerializedName("image") val image : List<ImageItem>,
     @SerializedName("streamable") val streamable : Int,
@@ -16,7 +16,6 @@ data class ArtistItem(
     //info method gets these items
     @SerializedName("ontour") val ontour : Int,
     @SerializedName("stats") val stats : StatsItem,
-    //@SerializedName("similar") val similar : Similar,
     @SerializedName("tags") val tags : TagItem,
     @SerializedName("bio") val bio : BioItem
 )

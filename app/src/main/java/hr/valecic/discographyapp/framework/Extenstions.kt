@@ -32,7 +32,7 @@ inline fun <reified T : Activity> Context.startActivity(key: String, value: Int)
     }.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 )
 
-inline fun <reified T : Activity> Context.startActivityNoHistory(key: String, value: Int) = startActivity(
+inline fun <reified T : Activity> Context.startActivityNoHistory(key: String, value: String) = startActivity(
     Intent(this, T::class.java).apply {
         putExtra(key, value)
         setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
@@ -89,21 +89,3 @@ fun Context.fetchItems(): MutableList<Artist>{
     }
     return artists
 }
-//@SuppressLint("Range")
-//fun Context.fetchInfo(): Artist{
-//    var artist: Artist
-//    val cursor = contentResolver.query(DISCOG_PROVIDER_CONTENT_URI,
-//        null, null, null, null)
-//    while (cursor != null && cursor.moveToNext()) {
-//        artist = Artist(
-//            cursor.getLong(cursor.getColumnIndex(Artist::_id.name)),
-//            cursor.getString(cursor.getColumnIndex(Artist::name.name)),
-////            cursor.getString(cursor.getColumnIndex(Artist::image.name)),
-//            cursor.getInt(cursor.getColumnIndex(Artist::streamable.name)) == 1,
-//            cursor.getString(cursor.getColumnIndex(Artist::match.name)),
-//            cursor.getInt(cursor.getColumnIndex(Artist::favorite.name)) == 1,
-//            null,null,null,null
-//        ))
-//    }
-//    return artists
-//}

@@ -41,4 +41,6 @@
     <dimen name="albumsMargin">20dp</dimen>
     <dimen name="userHeadingSize">60dp</dimen>
     <dimen name="AuthProgressBarSize">75dp</dimen>
+    <dimen name="artist_container_paddingV">20dp</dimen>
+    <dimen name="artist_info_padding">10dp</dimen>
 </resources>

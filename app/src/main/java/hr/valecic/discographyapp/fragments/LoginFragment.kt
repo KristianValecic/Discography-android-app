@@ -49,20 +49,9 @@ class LoginFragment : Fragment() {
         tvRegister.setOnClickListener() {
             Navigation.findNavController(binding.root)
                 .navigate(R.id.action_menuLogin_to_menuRegister)
-//            Navigation.findNavController(HostActivity(), R.id.navController)
-//                .navigate(R.id.action_menuLogin_to_menuRegister)
         }
         btnLogin.setOnClickListener() {
             loginUser()
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        if (auth.currentUser != null){
-//            Navigation.findNavController(binding.root)
-//                .navigate(R.id.action_menuLogin_to_menuAccount)
-//            requireFragmentManager().popBackStack()
         }
     }
 
@@ -81,6 +70,10 @@ class LoginFragment : Fragment() {
         }
         if (TextUtils.isEmpty(password)) {
             passwordEditText.error = "Password cannot be empty"
+            passwordEditText.requestFocus()
+            return
+        } else if (password.length < 6) {
+            passwordEditText.error = "Password must be at least 6 characters long"
             passwordEditText.requestFocus()
             return
         }

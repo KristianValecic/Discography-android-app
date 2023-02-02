@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingVertical="20dp">
+        android:paddingVertical="@dimen/artist_container_paddingV">
 
         <TextView
             android:id="@+id/tvArtistName"
@@ -53,7 +53,7 @@
             android:layout_marginHorizontal="@dimen/itemPagerMarginHorizontal"
             android:background="@drawable/listeners_playercount_background"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:padding="@dimen/artist_info_padding">
 
             <TextView
                 android:id="@+id/tvListeners"

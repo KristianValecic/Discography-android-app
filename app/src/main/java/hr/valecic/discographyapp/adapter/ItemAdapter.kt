@@ -3,25 +3,21 @@ package hr.valecic.discographyapp.adapter
 import android.app.AlertDialog
 import android.content.ContentUris
 import android.content.Context
-import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.res.TypedArrayUtils
-import androidx.core.content.res.TypedArrayUtils.getString
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
-import hr.valecic.discographyapp.*
-import hr.valecic.discographyapp.framework.startActivity
+import hr.valecic.discographyapp.DISCOG_PROVIDER_CONTENT_URI
+import hr.valecic.discographyapp.LoadActivity
+import hr.valecic.discographyapp.POSITION
+import hr.valecic.discographyapp.R
 import hr.valecic.discographyapp.framework.startActivityNoHistory
 import hr.valecic.discographyapp.model.Artist
-import androidx.appcompat.app.AppCompatActivity as AppCompatActivit
+import java.lang.String
+import kotlin.Int
 
 
 class ItemAdapter(private val context: Context, private val items: MutableList<Artist>) :
@@ -32,14 +28,7 @@ class ItemAdapter(private val context: Context, private val items: MutableList<A
         private val tvAdditionalInfo = itemView.findViewById<TextView>(R.id.tvAdditionalInfo)
 
         fun bind(artist: Artist) {
-            //Picasso.get()
-            //.load(File(item.picturePath))
-            //.error(R.drawable.nasa)
-            //.transform(RoundedCornersTransformation(50, 5))
-            //.into(ivItem)
             tvBandName.text = artist.name
-//            val sb = StringBuilder()
-//            sb.append(R.string.artist_match).append(" ").append(artist.match)
             tvAdditionalInfo.text = "${itemView.context.getString(R.string.artist_match)} ${artist.match}"
         }
     }
@@ -56,13 +45,12 @@ class ItemAdapter(private val context: Context, private val items: MutableList<A
         holder.itemView.setOnLongClickListener {
             AlertDialog.Builder(context)
                 .setTitle("Delete artist")
-                .setMessage("Are you sure you want to delete this entry?") // Specifying a listener allows you to take an action before dismissing the dialog.
-                // The dialog is automatically dismissed when a dialog button is clicked.
+                .setMessage("Are you sure you want to delete this entry?")
                 .setPositiveButton(
                     android.R.string.yes
                 ) { dialog, which ->
                     deleteItem(position)
-                } // A null listener allows the button to dismiss the dialog and take no further action.
+        }
                 .setNegativeButton(android.R.string.no, null)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show()
@@ -70,7 +58,7 @@ class ItemAdapter(private val context: Context, private val items: MutableList<A
             true
         }
         holder.itemView.setOnClickListener {
-            context.startActivityNoHistory<LoadActivity>(POSITION, position)
+            context.startActivityNoHistory<LoadActivity>(POSITION, item.name)
             }
         holder.bind(item)
     }
@@ -82,7 +70,6 @@ class ItemAdapter(private val context: Context, private val items: MutableList<A
             null,
             null
         )
-//            File(item.picturePath).delete()
         items.removeAt(position)
         Toast.makeText(context, context.getString(R.string.deleted_item), Toast.LENGTH_SHORT).show()
         notifyDataSetChanged()

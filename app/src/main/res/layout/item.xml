@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:textSize="@dimen/textRegularSize"
-                tools:text="Band name" />
+                tools:text="@string/band_name" />
 
             <TextView
                 android:id="@+id/tvAdditionalInfo"

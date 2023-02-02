@@ -8,7 +8,6 @@ import hr.valecic.discographyapp.framework.startActivity
 class ArtistReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-//        ArtistActivity.startBind()
         context?.startActivity<ArtistActivity>()
     }
 }

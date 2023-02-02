@@ -33,10 +33,6 @@ class ArtistActivity() : AppCompatActivity() {
 
     private lateinit var binding: ActivityArtistBinding
 
-    //    private lateinit var artists: MutableList<Artist>
-//    private lateinit var artist: Artist
-//    private var position = 0
-
     private lateinit var tvArtistName: TextView
     private lateinit var tvListeners: TextView
     private lateinit var tvPlaycount: TextView
@@ -53,8 +49,6 @@ class ArtistActivity() : AppCompatActivity() {
         setContentView(binding.root)
 
         initLayoutComponents()
-        initPosiiton()
-//        getArtist()
         bind(artist)
     }
 
@@ -66,9 +60,6 @@ class ArtistActivity() : AppCompatActivity() {
         ivFavorite = findViewById(R.id.ivFavorite)
     }
 
-    private fun initPosiiton() {
-//        position = intent.getIntExtra(POSITION, position)
-    }
 
     fun bind(artist: Artist) {
         tvArtistName.text = artist.name
@@ -91,17 +82,19 @@ class ArtistActivity() : AppCompatActivity() {
                 if (ivFavorite.tag == R.drawable.star_fill) {
                     ivFavorite.setImageResource(R.drawable.star)
                     ivFavorite.tag = R.drawable.star
+                    Toast.makeText(this,getString(R.string.removed_from_fav), Toast.LENGTH_SHORT).show()
                 } else {
                     ivFavorite.setImageResource(R.drawable.star_fill)
                     ivFavorite.tag = R.drawable.star_fill
+                    Toast.makeText(this, getString(R.string.added_to_fav), Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
 
     private fun updateItem() {
-        val item = fetchItems()[position]
-        item.favorite = !item.favorite
+        val item = fetchItems().find { it.name == artist.name }
+        item!!.favorite = !item!!.favorite
         contentResolver.update(
             ContentUris.withAppendedId(DISCOG_PROVIDER_CONTENT_URI, item._id!!),
             ContentValues().apply {
@@ -110,7 +103,7 @@ class ArtistActivity() : AppCompatActivity() {
             null,
             null
         )
-//        notifyDataSetChanged()
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -121,8 +114,7 @@ class ArtistActivity() : AppCompatActivity() {
     private fun fillAlbums() {
         albumAdapter = AlbumAdapter(albumList)
         binding.albumsContainer.apply {
-            layoutManager =
-                LinearLayoutManager(this@ArtistActivity, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(this@ArtistActivity, LinearLayoutManager.HORIZONTAL, false)
             adapter = albumAdapter
         }
         albums.forEach {

@@ -15,5 +15,5 @@
         android:paddingHorizontal="@dimen/tvTagPaddingHorizontal"
         android:paddingVertical="@dimen/tvTagPaddingVertical"
         android:textColor="@color/black"
-        tools:text="punk"/>
+        tools:text="@string/punk"/>
 </androidx.cardview.widget.CardView>

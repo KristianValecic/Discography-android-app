@@ -55,13 +55,12 @@ class ArtistFetcher(private val context: Context) {
     }
 
     private fun populateItem(artistWrapper: ArtistItem) {
-//        println(artist)
         var artist = artistWrapper.artist
         var fetchedArtist: Artist
         GlobalScope.launch {
             ArtistActivity.artist = Artist(
                 null,
-                artist.name, /*mutableListOf(),*/
+                artist.name,
                 artist.streamable == 1,
                 null,
                 context.fetchItems().find { it.name == artist.name }!!.favorite,

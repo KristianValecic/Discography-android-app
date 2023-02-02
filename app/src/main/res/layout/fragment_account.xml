@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Account"
+            android:text="@string/account"
             android:textSize="@dimen/textHeading"
             android:textStyle="bold"
             tools:ignore="MissingConstraints" />
@@ -45,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="10dp"
-                android:text="Email:"
+                android:text="@string/email"
                 android:textColor="@color/primary"
                 android:textColorHint="@color/primaryOpacity"
                 android:textSize="@dimen/textRegularSize" />

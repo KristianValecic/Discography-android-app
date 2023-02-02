@@ -35,17 +35,5 @@ class ArtistService() : JobIntentService(){
                 context, ArtistService::class.java, JOB_ID, intent
             )
         }
-
-        fun enqueueGetArtistAlbums(context: Context, name: String) {
-            val intent = Intent(context, AlbumService::class.java)
-            val b = Bundle()
-            b.putString(NAME, name)
-
-            intent.putExtras(b) //Put your id to your next Intent
-
-            enqueueWork(
-                context, AlbumService::class.java, JOB_ID, intent
-            )
-        }
     }
 }

@@ -14,25 +14,7 @@
         tools:layout="@layout/fragment_favorites"
         android:label="@string/favorites"
         android:name="hr.valecic.discographyapp.fragments.FavoritesFragment"
-        android:id="@+id/menuFavorites">
-
-        <action
-            android:id="@+id/action_menuFavorites_to_menuLgoinFavorites"
-            app:destination="@id/menuLgoinFavorites" />
-    </fragment>
-    <fragment
-        tools:layout="@layout/fragment_login_favorites"
-        android:label="@string/favorites"
-        android:name="hr.valecic.discographyapp.fragments.LoginFavoritesFragment"
-        android:id="@+id/menuLgoinFavorites">
-
-        <action
-            android:id="@+id/action_menuLgoinFavorites_to_menuFavorites"
-            app:destination="@id/menuFavorites" />
-        <action
-            android:id="@+id/action_menuLgoinFavorites_to_menuAccount"
-            app:destination="@id/menuAccount" />
-    </fragment>
+        android:id="@+id/menuFavorites"/>
 
     <fragment
         tools:layout="@layout/fragment_login"

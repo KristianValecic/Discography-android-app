@@ -2,6 +2,7 @@ package hr.valecic.discographyapp.fragments
 
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -26,8 +27,6 @@ class RegisterFragment : Fragment() {
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
 
-    //    private lateinit var etRegEmail: TextInputEditText
-//    private lateinit var etRegPass: TextInputEditText
     private lateinit var tvLogin: TextView
 
     override fun onCreateView(
@@ -46,17 +45,12 @@ class RegisterFragment : Fragment() {
         emailEditText = binding.emailEditText
         passwordEditText = binding.passwordEditText
         btnRegister = binding.registerButton
-//        etRegEmail = binding.etRegEmail
-//        etRegPass = binding.etRegPass
-
         btnRegister.setOnClickListener() {
             createUser()
         }
         tvLogin.setOnClickListener() {
             Navigation.findNavController(binding.root)
                 .navigate(R.id.action_menuRegister_to_menuLogin)
-//           Navigation.findNavController(HostActivity(), R.id.navController)
-//               .navigate(R.id.action_menuRegister_to_menuLogin)
 
         }
     }
@@ -66,28 +60,41 @@ class RegisterFragment : Fragment() {
         var password = passwordEditText.text
 
         if (TextUtils.isEmpty(email)) {
-//            etRegEmail.error = "Email cannot be empty"
-//            etRegEmail.requestFocus()
             emailEditText.error = "Email cannot be empty"
             emailEditText.requestFocus()
-        } else if (TextUtils.isEmpty(password)) {
-//            etRegPass.error = "Password cannot be empty"
-//            etRegPass.requestFocus()
+            return
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            emailEditText.error = "Please enter valid email"
+            emailEditText.requestFocus()
+            return
+        }
+        if (TextUtils.isEmpty(password)) {
             passwordEditText.error = "Password cannot be empty"
             passwordEditText.requestFocus()
-        } else {
-            auth.createUserWithEmailAndPassword(email.toString(), password.toString()).addOnCompleteListener(
+            return
+        } else if (password.length < 6) {
+            passwordEditText.error = "Password must be at least 6 characters long"
+            passwordEditText.requestFocus()
+            return
+        }
+        auth.createUserWithEmailAndPassword(email.toString(), password.toString())
+            .addOnCompleteListener(
                 OnCompleteListener {
-                    if (it.isSuccessful){
-                        Toast.makeText(context, getString(R.string.account_created), Toast.LENGTH_SHORT).show()
+                    if (it.isSuccessful) {
+                        Toast.makeText(
+                            context,
+                            getString(R.string.account_created),
+                            Toast.LENGTH_SHORT
+                        ).show()
                         Navigation.findNavController(binding.root)
                             .navigate(R.id.action_menuRegister_to_menuAccount)
-                    }else{
-                        Toast.makeText(context, getString(R.string.reg_error), Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(context, getString(R.string.reg_error), Toast.LENGTH_SHORT)
+                            .show()
                     }
                 })
-        }
     }
+
 
     private fun initAuth() {
         auth = FirebaseAuth.getInstance()
